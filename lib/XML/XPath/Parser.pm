@@ -785,7 +785,8 @@ sub is_step {
     elsif ($token =~ /^\@($NCWild|$QName|$QNWild)$/o) {
         return 1;
     }
-    elsif ($token =~ /^($NCWild|$QName|$QNWild)$/o && $tokens->[$self->{_tokpos}+1] ne '(') {
+    elsif ($token =~ /^($NCWild|$QName|$QNWild)$/o
+           && (!defined $tokens->[$self->{_tokpos}+1] || ($tokens->[$self->{_tokpos}+1] ne '('))) {
         return 1;
     }
     elsif ($token =~ /^$NODE_TYPE$/o) {
