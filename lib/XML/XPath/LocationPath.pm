@@ -1,4 +1,7 @@
 package XML::XPath::LocationPath;
+
+$VERSION = '1.14';
+
 use XML::XPath::Root;
 use strict; use warnings;
 

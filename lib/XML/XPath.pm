@@ -3,7 +3,7 @@ package XML::XPath;
 use strict; use warnings;
 use vars qw($VERSION $AUTOLOAD $revision);
 
-$VERSION = '1.13';
+$VERSION = '1.14';
 $XML::XPath::Namespaces = 1;
 $XML::XPath::Debug = 0;
 
@@ -539,7 +539,9 @@ Gnu GPL,  or the Artistic License (the same terms as Perl itself).
 For support, please subscribe to the Perl-XML mailing list at the URL
 http://listserv.activestate.com/mailman/listinfo/perl-xml
 
-Matt Sergeant, matt@sergeant.org
+Matt Sergeant, C<< <matt at sergeant.org> >>
+
+Currently maintained by Mohammad S Anwar, C<< <mohammad.anwar at yahoo.com> >>
 
 =head1 SEE ALSO
 

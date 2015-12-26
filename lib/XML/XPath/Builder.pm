@@ -1,5 +1,7 @@
 package XML::XPath::Builder;
 
+$VERSION = '1.14';
+
 use strict; use warnings;
 
 # to get array index constants

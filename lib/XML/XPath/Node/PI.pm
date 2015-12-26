@@ -1,5 +1,7 @@
 package XML::XPath::Node::PI;
 
+$VERSION = '1.14';
+
 use strict; use warnings;
 use vars qw/@ISA/;
 

@@ -1,4 +1,7 @@
 package XML::XPath::Root;
+
+$VERSION = '1.14';
+
 use strict; use warnings;
 use XML::XPath::XMLParser;
 use XML::XPath::NodeSet;

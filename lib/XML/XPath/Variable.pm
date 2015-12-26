@@ -1,4 +1,7 @@
 package XML::XPath::Variable;
+
+$VERSION = '1.14';
+
 use strict; use warnings;
 
 # This class does NOT contain 1 instance of a variable

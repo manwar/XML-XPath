@@ -1,4 +1,7 @@
 package XML::XPath::NodeSet;
+
+$VERSION = '1.14';
+
 use strict; use warnings;
 
 use XML::XPath::Boolean;

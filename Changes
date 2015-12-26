@@ -1,0 +1,7 @@
+Revision history for XML::XPath
+
+1.14  2015-12-26 MANWAR
+      - Added Changes file.
+      - Enabled 'warnings' check.
+      - Moved packages to lib/ folder.
+      - Added key 'resources' to the Makefile.PL script.
