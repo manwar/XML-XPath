@@ -10,6 +10,7 @@ WriteMakefile(
     AUTHOR             => 'Matt Sergeant, AxKit.com Ltd',
     VERSION_FROM       => 'lib/XML/XPath.pm',
     MIN_PERL_VERSION   => 5.006,
+    LICENSE            => 'artistic_2',
     EXE_FILES          => [ 'examples/xpath' ],
     CONFIGURE_REQUIRES => {
         'ExtUtils::MakeMaker' => 0,

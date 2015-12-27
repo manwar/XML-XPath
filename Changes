@@ -1,5 +1,11 @@
 Revision history for XML::XPath
 
+1.15  2015-12-27 MANWAR
+      - Added Changes file to the MANIFEST file.
+      - Added LICENSE file.
+      - Added MANIFEST.SKIP file.
+      - Tidied up pod document of the package XML::XPath.
+
 1.14  2015-12-26 MANWAR
       - Added Changes file.
       - Enabled 'warnings' check.

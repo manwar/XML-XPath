@@ -1,6 +1,6 @@
 package XML::XPath::PerlSAX;
 
-$VERSION = '1.14';
+$VERSION = '1.15';
 
 use XML::XPath::XMLParser;
 use strict; use warnings;
