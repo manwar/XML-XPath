@@ -1,6 +1,6 @@
 package XML::XPath::XMLParser;
 
-$VERSION = '1.15';
+$VERSION = '1.16';
 
 use strict; use warnings;
 
@@ -253,7 +253,7 @@ This module generates a node tree for use as the context node for XPath processi
 It aims to be a quick parser, nothing fancy, and yet has to store more information
 than most parsers. To achieve this I've used array refs everywhere - no hashes.
 I don't have any performance figures for the speedups achieved, so I make no
-appologies for anyone not used to using arrays instead of hashes. I think they
+apologies for anyone not used to using arrays instead of hashes. I think they
 make good sense here where we know the attributes of each type of node.
 
 =head1 Node Structure

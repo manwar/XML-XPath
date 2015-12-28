@@ -6,14 +6,14 @@ XML::XPath - a set of modules for parsing and evaluating XPath statements
 
 =head1 VERSION
 
-Version 1.15
+Version 1.16
 
 =cut
 
 use strict; use warnings;
 use vars qw($VERSION $AUTOLOAD $revision);
 
-$VERSION = '1.15';
+$VERSION = '1.16';
 $XML::XPath::Namespaces = 1;
 $XML::XPath::Debug = 0;
 
@@ -56,7 +56,7 @@ and XPointer may need to do this as they support functionality beyond XPath.
 There is an awful lot to  all  of  this, so bear with it - if you stick it out it
 should be worth it. Please get a good understanding of XPath by reading  the spec
 before asking me questions. All of the classes and parts  herein are named to  be
-synonimous  with  the  names in  the  specification, so consult that if you don't
+synonymous  with  the  names in  the  specification, so consult that if you don't
 understand why I'm doing something in the code.
 
 =head1 METHODS
@@ -140,14 +140,15 @@ sub find {
     if (!defined $context) {
         $context = $self->get_context;
     }
+
     if (!defined $context) {
         # Still no context? Need to parse...
         my $parser = XML::XPath::XMLParser->new(
                 filename => $self->get_filename,
-                xml => $self->get_xml,
-                ioref => $self->get_ioref,
-                parser => $self->get_parser,
-                );
+                xml      => $self->get_xml,
+                ioref    => $self->get_ioref,
+                parser   => $self->get_parser,
+        );
         $context = $parser->parse;
         $self->set_context($context);
         # warn "CONTEXT:\n", Data::Dumper->Dumpxs([$context], ['context']);
@@ -168,8 +169,7 @@ context returns an XML::XPath::NodeSet object.
 =cut
 
 sub findnodes {
-    my $self = shift;
-    my ($path, $context) = @_;
+    my ($self, $path, $context) = @_;
 
     my $results = $self->find($path, $context);
 

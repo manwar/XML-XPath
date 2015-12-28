@@ -1,6 +1,6 @@
 package XML::XPath::Node;
 
-$VERSION = '1.15';
+$VERSION = '1.16';
 
 use strict; use warnings;
 use vars qw(@ISA @EXPORT $AUTOLOAD %EXPORT_TAGS @EXPORT_OK);
@@ -230,7 +230,7 @@ sub AUTOLOAD {
             croak $@;
         }
         if ($obj) {
-            # make sure $@ propogates if this method call was the result
+            # make sure $@ propagates if this method call was the result
             # of losing scope because of a die().
             if ($method =~ /^(DESTROY|del_parent_link)$/) {
                 $obj->$method(@_);

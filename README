@@ -1,28 +1,41 @@
 NAME
+
     XML::XPath - a set of modules for parsing and evaluating XPath
     statements
 
 DESCRIPTION
+
     This module aims to comply exactly to the XPath specification at
     http://www.w3.org/TR/xpath and yet allow extensions to be added
     in the form of functions. Modules such as XSLT and XPointer may
     need to do this as they support functionality beyond XPath.
 
+INSTALLATION
+
+To install this module, run the following commands:
+
+    perl Makefile.PL
+    make
+    make test
+    make install
+
 SYNOPSIS
-        use XML::XPath;
-        use XML::XPath::XMLParser;
-        
-        my $xp = XML::XPath->new(filename => 'test.xhtml');
-        
-        my $nodeset = $xp->find('/html/body/p'); # find all paragraphs
-        
-        foreach my $node ($nodeset->get_nodelist) {
-            print "FOUND\n\n", 
-                XML::XPath::XMLParser::as_string($node),
-                "\n\n";
-        }
+
+    use XML::XPath;
+    use XML::XPath::XMLParser;
+
+    my $xp = XML::XPath->new(filename => 'test.xhtml');
+
+    my $nodeset = $xp->find('/html/body/p'); # find all paragraphs
+
+    foreach my $node ($nodeset->get_nodelist) {
+        print "FOUND\n\n",
+            XML::XPath::XMLParser::as_string($node),
+            "\n\n";
+    }
 
 DETAILS
+
     There's an awful lot to all of this, so bear with it - if you
     stick it out it should be worth it. Please get a good
     understanding of XPath by reading the spec before asking me
@@ -31,6 +44,7 @@ DETAILS
     if you don't understand why I'm doing something in the code.
 
 API
+
     The API of XML::XPath itself is extremely simple to allow you to
     get going almost immediately. The deeper API's are more complex,
     but you shouldn't have to touch most of that.
@@ -124,6 +138,7 @@ API
     suffer for it, probably.
 
 Node Object Model
+
     See the XML::XPath::Node manpage, the XML::XPath::Node::Element
     manpage, the XML::XPath::Node::Text manpage, the
     XML::XPath::Node::Comment manpage, the
@@ -190,4 +205,3 @@ SEE ALSO
     XML::XPath::XMLParser manpage, the XML::XPath::NodeSet manpage,
     the XML::XPath::PerlSAX manpage, the XML::XPath::Builder
     manpage.
-
