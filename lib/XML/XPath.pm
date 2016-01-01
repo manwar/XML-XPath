@@ -6,14 +6,14 @@ XML::XPath - a set of modules for parsing and evaluating XPath statements
 
 =head1 VERSION
 
-Version 1.16
+Version 1.17
 
 =cut
 
 use strict; use warnings;
 use vars qw($VERSION $AUTOLOAD $revision);
 
-$VERSION = '1.16';
+$VERSION = '1.17';
 $XML::XPath::Namespaces = 1;
 $XML::XPath::Debug = 0;
 
@@ -272,8 +272,8 @@ sub getNodeAsXML {
 
 =head2 getNodeText($path)
 
-Returns the text string for a particular XML node.  Returns a string, or undef if
-the node doesn't exist.
+Returns the L<XML::XPath::Literal> for a particular XML node.Returns a string, or
+undef if the node doesn't exist.
 
 =cut
 

@@ -58,6 +58,7 @@ t/27asxml.t
 t/28ancestor2.t
 t/29desc_with_predicate.t
 t/30lang.t
+t/31dots.t
 t/rdf.t
 t/remove.t
 t/insert.t

@@ -1,6 +1,6 @@
 package XML::XPath::Parser;
 
-$VERSION = '1.16';
+$VERSION = '1.17';
 
 use strict; use warnings;
 use vars qw/
@@ -795,6 +795,9 @@ sub is_step {
         return 1;
     }
     elsif ($token =~ /^$AXIS_NAME($NCWild|$QName|$QNWild|$NODE_TYPE)$/o) {
+        return 1;
+    }
+    elsif ($token =~ /^\.\.?$/) {
         return 1;
     }
 

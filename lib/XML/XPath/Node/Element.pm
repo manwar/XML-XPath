@@ -1,6 +1,6 @@
 package XML::XPath::Node::Element;
 
-$VERSION = '1.16';
+$VERSION = '1.17';
 
 use strict; use warnings;
 use vars qw/@ISA/;
@@ -458,6 +458,10 @@ Returns the child at position pos.
 =head2 appendChild ( childnode )
 
 Appends the child node to the list of current child nodes.
+
+=head2 removeChild ( childnode )
+
+Removes the supplied child node from the list of current child nodes.
 
 =head2 getAttribute ( name )
 

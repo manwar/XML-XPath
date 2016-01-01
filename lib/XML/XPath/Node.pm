@@ -1,6 +1,6 @@
 package XML::XPath::Node;
 
-$VERSION = '1.16';
+$VERSION = '1.17';
 
 use strict; use warnings;
 use vars qw(@ISA @EXPORT $AUTOLOAD %EXPORT_TAGS @EXPORT_OK);
