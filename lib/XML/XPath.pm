@@ -6,14 +6,14 @@ XML::XPath - a set of modules for parsing and evaluating XPath statements
 
 =head1 VERSION
 
-Version 1.17
+Version 1.18
 
 =cut
 
 use strict; use warnings;
 use vars qw($VERSION $AUTOLOAD $revision);
 
-$VERSION = '1.17';
+$VERSION = '1.18';
 $XML::XPath::Namespaces = 1;
 $XML::XPath::Debug = 0;
 

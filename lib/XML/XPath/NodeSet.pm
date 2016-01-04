@@ -1,6 +1,6 @@
 package XML::XPath::NodeSet;
 
-$VERSION = '1.17';
+$VERSION = '1.18';
 
 use strict; use warnings;
 
@@ -19,6 +19,19 @@ sub new {
 sub sort {
     my $self = CORE::shift;
     @$self = CORE::sort { $a->get_global_pos <=> $b->get_global_pos } @$self;
+    $self->remove_duplicates;
+    return $self;
+}
+
+sub remove_duplicates {
+    my $self = CORE::shift;
+    my @unique;
+    my $last_node=0;
+    foreach my $node (@$self) {
+        push @unique, $node unless( $node == $last_node);
+        $last_node= $node;
+    }
+    @$self= @unique;
     return $self;
 }
 

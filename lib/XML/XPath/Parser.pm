@@ -1,6 +1,6 @@
 package XML::XPath::Parser;
 
-$VERSION = '1.17';
+$VERSION = '1.18';
 
 use strict; use warnings;
 use vars qw/
@@ -15,6 +15,7 @@ use vars qw/
         $LITERAL
         %CACHE/;
 
+use Carp qw(croak);
 use XML::XPath::XMLParser;
 use XML::XPath::Step;
 use XML::XPath::Expr;
@@ -488,7 +489,7 @@ sub PrimaryExpr {
         match($self, $tokens, '\\)', 1);
     }
     else {
-        die "Not a PrimaryExpr at ", $tokens->[$self->{_tokpos}], "\n";
+        croak("Not a PrimaryExpr at " . $tokens->[$self->{_tokpos}]);
     }
 
     return $expr;
