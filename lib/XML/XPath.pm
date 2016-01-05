@@ -6,17 +6,18 @@ XML::XPath - a set of modules for parsing and evaluating XPath statements
 
 =head1 VERSION
 
-Version 1.18
+Version 1.19
 
 =cut
 
 use strict; use warnings;
 use vars qw($VERSION $AUTOLOAD $revision);
 
-$VERSION = '1.18';
+$VERSION = '1.19';
 $XML::XPath::Namespaces = 1;
 $XML::XPath::Debug = 0;
 
+use Data::Dumper;
 use XML::XPath::XMLParser;
 use XML::XPath::Parser;
 use IO::File;
@@ -151,13 +152,13 @@ sub find {
         );
         $context = $parser->parse;
         $self->set_context($context);
-        # warn "CONTEXT:\n", Data::Dumper->Dumpxs([$context], ['context']);
+        #warn "CONTEXT:\n", Dumper([$context], ['context']);
     }
 
     my $parsed_path = $self->{path_parser}->parse($path);
-    # warn "\n\nPATH: ", $parsed_path->as_string, "\n\n";
+    #warn "\n\nPATH: ", $parsed_path->as_string, "\n\n";
 
-    # warn "evaluating path\n";
+    #warn "evaluating path\n";
     return $parsed_path->evaluate($context);
 }
 
@@ -236,7 +237,6 @@ sub findvalue {
     my ($self, $path, $context) = @_;
 
     my $results = $self->find($path, $context);
-
     if ($results->isa('XML::XPath::NodeSet')) {
         return $results->to_literal;
     }
@@ -272,8 +272,8 @@ sub getNodeAsXML {
 
 =head2 getNodeText($path)
 
-Returns the L<XML::XPath::Literal> for a particular XML node.Returns a string, or
-undef if the node doesn't exist.
+Returns the L<XML::XPath::Literal> for a particular XML node. Returns a string or
+'' (empty string) if the node doesn't exist.
 
 =cut
 
@@ -305,7 +305,16 @@ sub setNodeText {
     if ($#nodes < 0) {
         if ($node_path =~ m|/@([^/]+)$|) {
             # attribute not found, so try to create it
-            my $parent_path = $`;
+
+            # Based upon the 'perlvar' documentation located at:
+            # http://perldoc.perl.org/perlvar.html
+            #
+            # The @LAST_MATCH_START section indicates that there's a more efficient
+            # version of $` that can be used.
+            #
+            # Specifically, after a match against some variable $var:
+            #    * $` is the same as substr($var, 0, $-[0])
+            my $parent_path = substr($node_path, 0, $-[0]);
             my $attr = $1;
             $nodeset = $self->findnodes($parent_path);
             return undef if (!defined $nodeset);

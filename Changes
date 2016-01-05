@@ -1,5 +1,8 @@
 Revision history for XML::XPath
 
+1.19  2016-01-05 MANWAR
+      - Fixed issues RT# 14248 and RT# 23924.
+
 1.18  2016-01-04 MANWAR
       - Fixed issues RT# 6362 and RT# 32233.
 

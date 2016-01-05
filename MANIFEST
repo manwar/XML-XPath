@@ -60,6 +60,7 @@ t/29desc_with_predicate.t
 t/30lang.t
 t/31dots.t
 t/32duplicate_nodes.t
+t/33getnodetext.t
 t/rdf.t
 t/remove.t
 t/insert.t
