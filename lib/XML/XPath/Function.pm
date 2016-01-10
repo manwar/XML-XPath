@@ -1,6 +1,6 @@
 package XML::XPath::Function;
 
-$VERSION = '1.19';
+$VERSION = '1.20';
 
 use XML::XPath::Number;
 use XML::XPath::Literal;
@@ -145,7 +145,21 @@ sub local_name {
 sub namespace_uri {
     my $self = shift;
     my ($node, @params) = @_;
-    die "namespace-uri: Function not supported\n";
+
+    if (@params > 1) {
+        die "namespace_uri() function takes one or no parameters\n";
+    }
+    elsif (@params) {
+        my $nodeset = shift(@params);
+        $node = $nodeset->get_node(1);
+    }
+
+    # Sets to xmlns:[name]="namespace" or xmlns="namespace"
+    my $namespace = $node->getNamespace->toString;
+    # We only need data between the quotation marks
+    $namespace =~ /\"(.*?)\"/;
+
+    return XML::XPath::Literal->new($1);
 }
 
 sub name {

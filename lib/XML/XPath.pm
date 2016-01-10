@@ -6,14 +6,14 @@ XML::XPath - a set of modules for parsing and evaluating XPath statements
 
 =head1 VERSION
 
-Version 1.19
+Version 1.20
 
 =cut
 
 use strict; use warnings;
 use vars qw($VERSION $AUTOLOAD $revision);
 
-$VERSION = '1.19';
+$VERSION = '1.20';
 $XML::XPath::Namespaces = 1;
 $XML::XPath::Debug = 0;
 
@@ -125,7 +125,7 @@ sub new {
 
 The find function takes an XPath expression (a string) and returns either an XML::XPath::NodeSet
 object  containing the nodes it found (or empty if no nodes matched the path), or
-one of XML::XPath::Literal (a string), XML::XPath::Number or XML::XPath::Boolean.
+one of L<XML::XPath::Literal> (a string), L<XML::XPath::Number> or L<XML::XPath::Boolean>.
 It should always return something - and you can use ->isa()  to find out  what it
 returned. If you need to check how many nodes it found you should check $nodeset->size.
 See L<XML::XPath::NodeSet>. An optional second parameter of a context node allows
@@ -143,7 +143,7 @@ sub find {
     }
 
     if (!defined $context) {
-        # Still no context? Need to parse...
+        # Still no context? Need to parse.
         my $parser = XML::XPath::XMLParser->new(
                 filename => $self->get_filename,
                 xml      => $self->get_xml,
@@ -272,8 +272,8 @@ sub getNodeAsXML {
 
 =head2 getNodeText($path)
 
-Returns the L<XML::XPath::Literal> for a particular XML node. Returns a string or
-'' (empty string) if the node doesn't exist.
+Returns the L<XML::XPath::Literal> for a particular XML node. Returns a string if
+exists or '' (empty string) if the node doesn't exist.
 
 =cut
 
@@ -303,7 +303,7 @@ sub setNodeText {
 
     my @nodes = $nodeset->get_nodelist;
     if ($#nodes < 0) {
-        if ($node_path =~ m|/@([^/]+)$|) {
+        if ($node_path =~ m{/(?:@|attribute::)([^/]+)$}) {
             # attribute not found, so try to create it
 
             # Based upon the 'perlvar' documentation located at:
@@ -346,7 +346,7 @@ sub setNodeText {
 
 =head2 createNode($path)
 
-Creates the node matching the path given.If part of the path given, or all of the
+Creates the node matching the C<$path> given. If part of the path given or all of
 the path do not exist, the necessary nodes will be created automatically.
 
 =cut
@@ -469,12 +469,12 @@ sub cleanup {
 
 Sets the namespace prefix mapping to the uri.
 
-Normally in XML::XPath the  prefixes  in XPath node tests take their context from
+Normally in C<XML::XPath> the prefixes in XPath node test take their context from
 the current node. This means that foo:bar will always match an element  <foo:bar>
 regardless  of  the  namespace that the prefix foo is mapped to (which might even
 change  within  the document, resulting  in unexpected results). In order to make
 prefixes in XPath node tests actually map  to a real URI, you need to enable that
-via a call to the set_namespace method of your XML::XPath object.
+via a call to the set_namespace method of your C<XML::XPath> object.
 
 =cut
 
@@ -556,11 +556,11 @@ L<XML::XPath::Builder>.
 
 This module is  copyright  2000 AxKit.com Ltd. This is free software, and as such
 comes with NO WARRANTY. No dates are used in this module. You may distribute this
-module under the terms of either the Gnu GPL,  or the Artistic License ( the same
+module under the terms  of either the Gnu GPL,  or the Artistic License (the same
 terms as Perl itself).
 
-For support, please subscribe to the Perl-XML mailing list at the URL
-http://listserv.activestate.com/mailman/listinfo/perl-xml
+For support, please subscribe to the L<Perl-XML|http://listserv.activestate.com/mailman/listinfo/perl-xml>
+mailing list at the URL
 
 =cut
 
