@@ -1,6 +1,6 @@
 package XML::XPath::Root;
 
-$VERSION = '1.21';
+$VERSION = '1.22';
 
 use strict; use warnings;
 use XML::XPath::XMLParser;

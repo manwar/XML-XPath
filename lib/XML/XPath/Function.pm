@@ -1,6 +1,6 @@
 package XML::XPath::Function;
 
-$VERSION = '1.21';
+$VERSION = '1.22';
 
 use XML::XPath::Number;
 use XML::XPath::Literal;
@@ -265,7 +265,7 @@ sub substring {
     if (@params == 3) {
         $len = $params[2]->value;
 
-        if (($len eq 'NaN') || (($offset eq 'Infinity') && ($len eq 'Infinity'))) {
+        if (($len eq 'NaN') || (($offset =~ /Infinity/) && ($len eq 'Infinity'))) {
             return XML::XPath::Literal->new('');
         }
 

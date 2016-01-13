@@ -2,18 +2,18 @@ package XML::XPath;
 
 =head1 NAME
 
-XML::XPath - a set of modules for parsing and evaluating XPath statements
+XML::XPath - Parse and evaluate XPath statements.
 
 =head1 VERSION
 
-Version 1.21
+Version 1.22
 
 =cut
 
 use strict; use warnings;
 use vars qw($VERSION $AUTOLOAD $revision);
 
-$VERSION = '1.21';
+$VERSION = '1.22';
 $XML::XPath::Namespaces = 1;
 $XML::XPath::Debug = 0;
 
@@ -392,11 +392,19 @@ sub createNode {
         my $newnode = undef;
         my($axis,$name) = ($path =~ /^(.*?)::(.*)$/);
         if ($axis =~ /^child$/i) {
-            $newnode = XML::XPath::Node::Element->new($name);
+            if ($name =~ /(\S+):(\S+)/) {
+                $newnode = XML::XPath::Node::Element->new($name, $1);
+            } else {
+                $newnode = XML::XPath::Node::Element->new($name);
+            }
             return undef if (!defined $newnode);
             $prev_node->appendChild($newnode);
         } elsif ($axis =~ /^attribute$/i) {
-            $newnode = XML::XPath::Node::Attribute->new($name, "");
+            if ($name =~ /(\S+):(\S+)/) {
+                $newnode = XML::XPath::Node::Attribute->new($name, "", $1);
+            } else {
+                $newnode = XML::XPath::Node::Attribute->new($name, "");
+            }
             return undef if (!defined $newnode);
             $prev_node->appendAttribute($newnode);
         }

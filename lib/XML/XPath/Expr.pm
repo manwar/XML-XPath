@@ -1,6 +1,6 @@
 package XML::XPath::Expr;
 
-$VERSION = '1.21';
+$VERSION = '1.22';
 
 use strict; use warnings;
 
@@ -508,6 +508,18 @@ sub op_div {
     my ($node, $lhs, $rhs) = @_;
     my $lh_results = $lhs->evaluate($node);
     my $rh_results = $rhs->evaluate($node);
+
+    # handle zero devided cases.
+    if ($rh_results->to_number->value == 0) {
+        my $lv = $lh_results->to_number->value;
+        if ($lv == 0) {
+            return XML::XPath::Literal->new('NaN');
+        } elsif ($lv > 0) {
+            return XML::XPath::Literal->new('Infinity');
+        } elsif ($lv < 0) {
+            return XML::XPath::Literal->new('-Infinity');
+        }
+    }
 
     my $result = eval {
         $lh_results->to_number->value
