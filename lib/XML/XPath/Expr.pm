@@ -1,6 +1,6 @@
 package XML::XPath::Expr;
 
-$VERSION = '1.22';
+$VERSION = '1.23';
 
 use strict; use warnings;
 
@@ -331,7 +331,7 @@ sub op_nequals {
 
 sub op_le {
     my ($node, $lhs, $rhs) = @_;
-    op_gt($node, $rhs, $lhs);
+    op_ge($node, $rhs, $lhs);
 }
 
 sub op_ge {
@@ -360,31 +360,22 @@ sub op_ge {
              !$rh_results->isa('XML::XPath::NodeSet'))) {
         # (that says: one is a nodeset, and one is not a nodeset)
 
-        my ($nodeset, $other);
-        my ($true, $false);
         if ($lh_results->isa('XML::XPath::NodeSet')) {
-            $nodeset = $lh_results;
-            $other = $rh_results;
-            # we do this because unlike ==, these ops are direction dependant
-            ($false, $true) = (XML::XPath::Boolean->False, XML::XPath::Boolean->True);
-        }
-        else {
-            $nodeset = $rh_results;
-            $other = $lh_results;
-            # ditto above comment
-            ($true, $false) = (XML::XPath::Boolean->False, XML::XPath::Boolean->True);
-        }
-
-        # True if and only if there is a node in the
-        # nodeset such that the result of performing
-        # the comparison on <type>(string_value($node))
-        # is true.
-        foreach my $node ($nodeset->get_nodelist) {
-            if ($node->to_number->value >= $other->to_number->value) {
-                return $true;
+            foreach my $node ($lh_results->get_nodelist) {
+                if ($node->to_number->value >= $rh_results->to_number->value) {
+                    return XML::XPath::Boolean->True;
+                }
             }
         }
-        return $false;
+        else {
+            foreach my $node ($rh_results->get_nodelist) {
+                if ( $lh_results->to_number->value >= $node->to_number->value) {
+                    return XML::XPath::Boolean->True;
+                }
+            }
+        }
+
+        return XML::XPath::Boolean->False;
     }
     else { # Neither is a nodeset
         if ($lh_results->isa('XML::XPath::Boolean') ||
@@ -430,31 +421,22 @@ sub op_gt {
              !$rh_results->isa('XML::XPath::NodeSet'))) {
         # (that says: one is a nodeset, and one is not a nodeset)
 
-        my ($nodeset, $other);
-        my ($true, $false);
         if ($lh_results->isa('XML::XPath::NodeSet')) {
-            $nodeset = $lh_results;
-            $other = $rh_results;
-            # we do this because unlike ==, these ops are direction dependant
-            ($false, $true) = (XML::XPath::Boolean->False, XML::XPath::Boolean->True);
-        }
-        else {
-            $nodeset = $rh_results;
-            $other = $lh_results;
-            # ditto above comment
-            ($true, $false) = (XML::XPath::Boolean->False, XML::XPath::Boolean->True);
-        }
-
-        # True if and only if there is a node in the
-        # nodeset such that the result of performing
-        # the comparison on <type>(string_value($node))
-        # is true.
-        foreach my $node ($nodeset->get_nodelist) {
-            if ($node->to_number->value > $other->to_number->value) {
-                return $true;
+            foreach my $node ($lh_results->get_nodelist) {
+                if ($node->to_number->value > $rh_results->to_number->value) {
+                    return XML::XPath::Boolean->True;
+                }
             }
         }
-        return $false;
+        else {
+            foreach my $node ($rh_results->get_nodelist) {
+                if ( $lh_results->to_number->value > $node->to_number->value) {
+                    return XML::XPath::Boolean->True;
+                }
+            }
+        }
+
+        return XML::XPath::Boolean->False;
     }
     else { # Neither is a nodeset
         if ($lh_results->isa('XML::XPath::Boolean') ||

@@ -71,6 +71,7 @@ t/40substring_before.t
 t/41substring_after.t
 t/42create_node.t
 t/43op_div.t
+t/44test_compare.t
 t/rdf.t
 t/remove.t
 t/insert.t

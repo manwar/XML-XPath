@@ -1,5 +1,8 @@
 Revision history for XML::XPath
 
+1.23  2016-01-18 MANWAR
+      - Fixed issues RT# 6363 (using < in a query returns results as if <= had been used).
+
 1.22  2016-01-13 MANWAR
       - Fixed issues RT# 30818 and RT# 80277.
 
