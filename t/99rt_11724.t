@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 6 }
+BEGIN { plan tests => 7 }
 
 my $sample = <<EOS;
 <xml>
@@ -18,4 +18,5 @@ ok ( $xp->exists('/xml/tag') );
 my $nodelist = $xp->find('/xml/tag');
 ok( $nodelist->isa('XML::XPath::NodeSet') );
 ok( $nodelist->size == 1 );
-ok( $nodelist->string_value() eq 'FOO' );
+ok( $nodelist eq 'FOO' );
+ok( $nodelist ne 'BAR' );

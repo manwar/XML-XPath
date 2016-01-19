@@ -7,8 +7,10 @@ use strict; use warnings;
 use XML::XPath::Boolean;
 
 use overload
-		'""' => \&to_literal,
-                'bool' => \&to_boolean,
+		'""'	=> \&to_literal,
+		'eq'	=> \&string_value,
+		'ne'	=> \&string_value,
+        'bool'	=> \&to_boolean,
         ;
 
 sub new {
