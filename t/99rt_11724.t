@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 7 }
+BEGIN { plan tests => 11 }
 
 my $sample = <<EOS;
 <xml>
@@ -20,3 +20,7 @@ ok( $nodelist->isa('XML::XPath::NodeSet') );
 ok( $nodelist->size == 1 );
 ok( $nodelist eq 'FOO' );
 ok( $nodelist ne 'BAR' );
+ok( $nodelist gt 'BA' );
+ok( $nodelist ge 'BAR' );
+ok( $nodelist lt 'BARBAZ' );
+ok( $nodelist le 'BAR' );
