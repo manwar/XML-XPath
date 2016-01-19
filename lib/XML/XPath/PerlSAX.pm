@@ -1,7 +1,8 @@
 package XML::XPath::PerlSAX;
 
-$VERSION = '1.20';
+$VERSION = '1.24';
 
+use XML::XPath::Node qw(:node_keys);
 use XML::XPath::XMLParser;
 use strict; use warnings;
 

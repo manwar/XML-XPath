@@ -27,6 +27,7 @@ lib/XML/XPath/Boolean.pm
 lib/XML/XPath/Root.pm
 lib/XML/XPath/PerlSAX.pm
 lib/XML/XPath/Builder.pm
+t/00load.t
 t/01basic.t
 t/02descendant.t
 t/03star.t
@@ -62,6 +63,16 @@ t/31dots.t
 t/32duplicate_nodes.t
 t/33getnodetext.t
 t/34non_abbreviated_attrib.t
+t/35namespace_uri.t
+t/36substring.t
+t/37concat.t
+t/38starts_with.t
+t/39contains.t
+t/40substring_before.t
+t/41substring_after.t
+t/42create_node.t
+t/43op_div.t
+t/44test_compare.t
 t/rdf.t
 t/remove.t
 t/insert.t

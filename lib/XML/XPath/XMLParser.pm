@@ -1,11 +1,10 @@
 package XML::XPath::XMLParser;
 
-$VERSION = '1.20';
+$VERSION = '1.24';
 
 use strict; use warnings;
 
 use XML::Parser;
-#use XML::XPath;
 use XML::XPath::Node;
 use XML::XPath::Node::Element;
 use XML::XPath::Node::Text;

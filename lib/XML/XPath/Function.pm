@@ -1,6 +1,6 @@
 package XML::XPath::Function;
 
-$VERSION = '1.20';
+$VERSION = '1.24';
 
 use XML::XPath::Number;
 use XML::XPath::Literal;
@@ -216,8 +216,10 @@ sub contains {
     die "starts-with: incorrect number of params\n" unless @params == 2;
     my $value = $params[1]->string_value;
     if ($params[0]->string_value =~ /(.*?)\Q$value\E(.*)/) {
-        # $1 and $2 stored for substring funcs below
-        # TODO: Fix this nasty implementation!
+        # Store the values of contains1, contains2 for use in the
+        # substring functions below
+        $self->{contains1} = $1;
+        $self->{contains2} = $2;
         return XML::XPath::Boolean->True;
     }
     return XML::XPath::Boolean->False;
@@ -228,7 +230,7 @@ sub substring_before {
     my ($node, @params) = @_;
     die "starts-with: incorrect number of params\n" unless @params == 2;
     if ($self->contains($node, @params)->value) {
-        return XML::XPath::Literal->new($1); # hope that works!
+        return XML::XPath::Literal->new($self->{contains1});
     }
     else {
         return XML::XPath::Literal->new('');
@@ -240,7 +242,7 @@ sub substring_after {
     my ($node, @params) = @_;
     die "starts-with: incorrect number of params\n" unless @params == 2;
     if ($self->contains($node, @params)->value) {
-        return XML::XPath::Literal->new($2);
+        return XML::XPath::Literal->new($self->{contains2});
     }
     else {
         return XML::XPath::Literal->new('');
@@ -254,11 +256,58 @@ sub substring {
     my ($str, $offset, $len);
     $str = $params[0]->string_value;
     $offset = $params[1]->value;
-    $offset--; # uses 1 based offsets
+
+    if ($offset eq 'NaN') {
+        return XML::XPath::Literal->new('');
+    }
+
+    require POSIX;
     if (@params == 3) {
         $len = $params[2]->value;
+
+        if (($len eq 'NaN') || (($offset =~ /Infinity/) && ($len eq 'Infinity'))) {
+            return XML::XPath::Literal->new('');
+        }
+
+        if ($offset ne 'Infinity') {
+            $offset--; # uses 1 based offsets
+            $offset = POSIX::floor($offset + 0.5); # round.
+            if ($offset < 0) {
+                if ($len ne 'Infinity') {
+                    $len += $offset;
+                }
+                else {
+                    $len = length($str);
+                }
+                $offset = 0;
+            }
+            else {
+                if ($len eq 'Infinity') {
+                    return XML::XPath::Literal->new('');
+                }
+            }
+        }
+        else {
+            return XML::XPath::Literal->new('');
+        }
+
+        if ($len eq 'Infinity') {
+            $len = length($str);
+        }
+
+        $len = POSIX::floor($len + 0.5); # round.
+
+        return XML::XPath::Literal->new(substr($str, $offset, $len));
+    } else {
+        $offset--; # uses 1 based offsets
+        $offset = POSIX::floor($offset + 0.5); # round.
+
+        if ($offset < 0) {
+            $offset = 0;
+        }
+
+        return XML::XPath::Literal->new(substr($str, $offset));
     }
-    return XML::XPath::Literal->new(substr($str, $offset, $len));
 }
 
 sub string_length {

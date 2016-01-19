@@ -1,5 +1,17 @@
 Revision history for XML::XPath
 
+1.24  2016-01-19 MANWAR
+      - Fixed issue RT# 111278 (XML::XPath::PerlSAX doesn't compile).
+
+1.23  2016-01-18 MANWAR
+      - Fixed issue RT# 6363 (using < in a query returns results as if <= had been used).
+
+1.22  2016-01-13 MANWAR
+      - Fixed issues RT# 30818 and RT# 80277.
+
+1.21  2016-01-12 MANWAR
+      - Fixed issues RT# 14957 and RT# 30819.
+
 1.20  2016-01-10 MANWAR
       - Fixed issues RT# 26143 and RT# 68703.
 
