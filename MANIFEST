@@ -27,6 +27,7 @@ lib/XML/XPath/Boolean.pm
 lib/XML/XPath/Root.pm
 lib/XML/XPath/PerlSAX.pm
 lib/XML/XPath/Builder.pm
+t/00load.t
 t/01basic.t
 t/02descendant.t
 t/03star.t
