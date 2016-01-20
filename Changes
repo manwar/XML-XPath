@@ -1,5 +1,9 @@
 Revision history for XML::XPath
 
+1.25  2016-01-20 MANWAR
+      - Merged in GitHub PR #2, thanks to sdeseille.
+      - Merged t/45overloading_number_operator.t and t/99rt_11724.t into t/45cmp_nodeset.t
+
 1.24  2016-01-19 MANWAR
       - Fixed issue RT# 111278 (XML::XPath::PerlSAX doesn't compile).
 

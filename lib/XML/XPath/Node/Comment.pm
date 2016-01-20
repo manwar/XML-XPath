@@ -1,6 +1,6 @@
 package XML::XPath::Node::Comment;
 
-$VERSION = '1.24';
+$VERSION = '1.25';
 
 use strict; use warnings;
 use vars qw/@ISA/;
