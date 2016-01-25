@@ -78,5 +78,7 @@ t/rdf.t
 t/remove.t
 t/insert.t
 t/stress.t
+t/meta-json.t
+t/meta-yml.t
 examples/test.xml
 examples/xpath

@@ -1,5 +1,10 @@
 Revision history for XML::XPath
 
+1.26  2016-01-25 MANWAR
+      - Fixed inconsistent version issue (CPANTS).
+      - Added key 'provides' to the Makefile.PL script.
+      - Added unit test scripts t/meta-json.t and t/meta-yml.t
+
 1.25  2016-01-20 MANWAR
       - Merged in GitHub PR #2, thanks to sdeseille.
       - Merged t/45overloading_number_operator.t and t/99rt_11724.t into t/45cmp_nodeset.t
