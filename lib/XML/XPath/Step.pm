@@ -1,6 +1,6 @@
 package XML::XPath::Step;
 
-$VERSION = '1.26';
+$VERSION = '1.27';
 
 use XML::XPath::Parser;
 use XML::XPath::Node;
@@ -131,6 +131,8 @@ sub evaluate {
     my $from = shift; # context nodeset
 
 #    warn "Step::evaluate called with ", $from->size, " length nodeset\n";
+    my $saved_context = $self->{pp}->get_context_set;
+    my $saved_pos = $self->{pp}->get_context_pos;
 
     $self->{pp}->set_context_set($from);
 
@@ -150,7 +152,8 @@ sub evaluate {
 
 #    warn "Step::evaluate initial nodeset size: ", $initial_nodeset->size, "\n";
 
-    $self->{pp}->set_context_set(undef);
+    $self->{pp}->set_context_set($saved_context);
+    $self->{pp}->set_context_pos($saved_pos);
 
     $initial_nodeset->sort;
 

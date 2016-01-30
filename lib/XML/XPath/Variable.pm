@@ -1,6 +1,6 @@
 package XML::XPath::Variable;
 
-$VERSION = '1.26';
+$VERSION = '1.27';
 
 use strict; use warnings;
 

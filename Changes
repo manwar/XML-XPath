@@ -1,5 +1,8 @@
 Revision history for XML::XPath
 
+1.27  2016-01-30 MANWAR
+      - Fixed issue RT# 32012 (Debian bug #187583, http://bugs.debian.org/187583).
+
 1.26  2016-01-25 MANWAR
       - Fixed inconsistent version issue (CPANTS).
       - Added key 'provides' to the Makefile.PL script.
