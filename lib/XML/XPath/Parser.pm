@@ -1,6 +1,6 @@
 package XML::XPath::Parser;
 
-$VERSION = '1.27';
+$VERSION = '1.28';
 
 use strict; use warnings;
 use vars qw/

@@ -1,5 +1,9 @@
 Revision history for XML::XPath
 
+1.28  2016-01-31 MANWAR
+      - Changed the LICENSE information about the package XML::XPath::PerlSAX as per
+        Matt Sergeant email response (dated 2016-01-30).
+
 1.27  2016-01-30 MANWAR
       - Fixed issue RT# 32012 (Debian bug #187583, http://bugs.debian.org/187583).
 

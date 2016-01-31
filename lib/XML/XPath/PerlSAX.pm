@@ -1,6 +1,6 @@
 package XML::XPath::PerlSAX;
 
-$VERSION = '1.27';
+$VERSION = '1.28';
 
 use XML::XPath::Node qw(:node_keys);
 use XML::XPath::XMLParser;
@@ -165,4 +165,9 @@ The XML::DOM::PerlSAX handler I tried was completely broken (didn't even
 compile before I patched it a bit), so I don't know how correct this
 is or how far it will work.
 
-This software may only be distributed as part of the XML::XPath package.
+=head1 LICENSE AND COPYRIGHT
+
+This module is  copyright  2000 AxKit.com Ltd. This is free software, and as such
+comes with NO WARRANTY. No dates are used in this module. You may distribute this
+module under the terms  of either the Gnu GPL,  or the Artistic License (the same
+terms as Perl itself).
