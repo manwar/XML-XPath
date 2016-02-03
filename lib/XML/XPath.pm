@@ -6,14 +6,14 @@ XML::XPath - Parse and evaluate XPath statements.
 
 =head1 VERSION
 
-Version 1.28
+Version 1.29
 
 =cut
 
 use strict; use warnings;
 use vars qw($VERSION $AUTOLOAD $revision);
 
-$VERSION = '1.28';
+$VERSION = '1.29';
 $XML::XPath::Namespaces = 1;
 $XML::XPath::Debug = 0;
 
@@ -356,7 +356,8 @@ sub createNode {
 
     my $path_steps = $self->{path_parser}->parse($node_path);
     my @path_steps = ();
-    foreach my $step (@{$path_steps->get_lhs()}) {
+    my (undef, @path_steps_lhs) = @{$path_steps->get_lhs()};
+    foreach my $step (@path_steps_lhs) { # precompute paths as string
         my $string = $step->as_string();
         push(@path_steps, $string) if (defined $string && $string ne "");
     }
@@ -366,11 +367,13 @@ sub createNode {
     my $nodes = undef;
     my $p = undef;
     my $test_path = "";
+
     # Start with the deepest node, working up the path (right to left),
     # trying to find a node that exists.
-    for ($p = $#path_steps; $p >= 0; $p--) {
-        my $path = $path_steps[$p];
+    for ($p = $#path_steps_lhs; $p >= 0; $p--) {
+        my $path = $path_steps_lhs[$p];
         $test_path = "(/" . join("/", @path_steps[0..$p]) . ")";
+
         $nodeset = $self->findnodes($test_path);
         return undef if (!defined $nodeset); # error looking for node
         $nodes = $nodeset->size;
@@ -387,28 +390,39 @@ sub createNode {
 
     # We found a node that exists, or we'll start at the root.
     # Create all lower nodes working left to right along the path.
-    for ($p++ ; $p <= $#path_steps; $p++) {
-        my $path = $path_steps[$p];
+    for ($p++ ; $p <= $#path_steps_lhs; $p++) {
+        my $path = $path_steps_lhs[$p];
         my $newnode = undef;
-        my($axis,$name) = ($path =~ /^(.*?)::(.*)$/);
-        if ($axis =~ /^child$/i) {
-            if ($name =~ /(\S+):(\S+)/) {
-                $newnode = XML::XPath::Node::Element->new($name, $1);
-            } else {
-                $newnode = XML::XPath::Node::Element->new($name);
+
+        my $axis = $path->{axis};
+        my $name = $path->{literal};
+
+        do {
+            if ($axis =~ /^child$/i) {
+                if ($name =~ /(\S+):(\S+)/) {
+                    $newnode = XML::XPath::Node::Element->new($name, $1);
+                } else {
+                    $newnode = XML::XPath::Node::Element->new($name);
+                }
+                return undef if (!defined $newnode); # could not create new node
+                $prev_node->appendChild($newnode);
+            } elsif ($axis =~ /^attribute$/i) {
+                if ($name =~ /(\S+):(\S+)/) {
+                    $newnode = XML::XPath::Node::Attribute->new($name, "", $1);
+                } else {
+                    $newnode = XML::XPath::Node::Attribute->new($name, "");
+                }
+                return undef if (!defined $newnode); # could not create new node
+                $prev_node->appendAttribute($newnode);
             }
-            return undef if (!defined $newnode);
-            $prev_node->appendChild($newnode);
-        } elsif ($axis =~ /^attribute$/i) {
-            if ($name =~ /(\S+):(\S+)/) {
-                $newnode = XML::XPath::Node::Attribute->new($name, "", $1);
-            } else {
-                $newnode = XML::XPath::Node::Attribute->new($name, "");
-            }
-            return undef if (!defined $newnode);
-            $prev_node->appendAttribute($newnode);
-        }
-        $prev_node = $newnode;
+
+            $test_path = "(/" . join("/", @path_steps[0..$p]) . ")";
+            $nodeset = $self->findnodes($test_path);
+            $nodes = $nodeset->size;
+            die "failed to find node '$test_path'" if (!defined $nodeset); # error looking for node
+        } while ($nodes < 1);
+
+        $prev_node = $nodeset->get_node(1);
     }
 
     return $prev_node;

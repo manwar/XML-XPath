@@ -1,5 +1,8 @@
 Revision history for XML::XPath
 
+1.29  2016-02-03 MANWAR
+      - Fixed issue RT# 26144 (createNode doesn't honor position() predicate).
+
 1.28  2016-01-31 MANWAR
       - Changed the LICENSE information about the package XML::XPath::PerlSAX as per
         Matt Sergeant email response (dated 2016-01-30).
