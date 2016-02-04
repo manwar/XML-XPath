@@ -1,6 +1,6 @@
 package XML::XPath::Expr;
 
-$VERSION = '1.29';
+$VERSION = '1.30';
 
 use strict; use warnings;
 

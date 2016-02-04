@@ -1,6 +1,6 @@
 package XML::XPath::Boolean;
 
-$VERSION = '1.29';
+$VERSION = '1.30';
 
 use XML::XPath::Number;
 use XML::XPath::Literal;

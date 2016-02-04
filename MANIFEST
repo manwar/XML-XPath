@@ -76,6 +76,7 @@ t/44test_compare.t
 t/45cmp_nodeset.t
 t/46context.t
 t/47position.t
+t/48translate.t
 t/rdf.t
 t/remove.t
 t/insert.t

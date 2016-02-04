@@ -1,5 +1,9 @@
 Revision history for XML::XPath
 
+1.30  2016-02-04 MANWAR
+      - Fixed issue RT #15902 (Quoting warnings with translate).
+      - Fixed issue RT #21154 (translate() function does not remove characters or support -)
+
 1.29  2016-02-03 MANWAR
       - Fixed issue RT# 26144 (createNode doesn't honor position() predicate).
 
