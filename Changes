@@ -1,5 +1,8 @@
 Revision history for XML::XPath
 
+1.31  2016-02-22 MANWAR
+      - Proposed fix for RT #112017.
+
 1.30  2016-02-04 MANWAR
       - Fixed issue RT #15902 (Quoting warnings with translate).
       - Fixed issue RT #21154 (translate() function does not remove characters or support -)

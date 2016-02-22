@@ -1,6 +1,6 @@
 package XML::XPath::Node::Text;
 
-$VERSION = '1.30';
+$VERSION = '1.31';
 
 use strict; use warnings;
 use vars qw/@ISA/;
