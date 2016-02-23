@@ -1,6 +1,6 @@
 package XML::XPath::Literal;
 
-$VERSION = '1.31';
+$VERSION = '1.32';
 
 use XML::XPath::Boolean;
 use XML::XPath::Number;
@@ -8,6 +8,7 @@ use strict; use warnings;
 
 use overload
 		'""' => \&value,
+                'fallback' => 1,
 		'cmp' => \&cmp;
 
 sub new {

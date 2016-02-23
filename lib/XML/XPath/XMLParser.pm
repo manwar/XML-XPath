@@ -1,6 +1,6 @@
 package XML::XPath::XMLParser;
 
-$VERSION = '1.31';
+$VERSION = '1.32';
 
 use strict; use warnings;
 
@@ -52,7 +52,7 @@ sub parse {
 
     my $parser = $self->get_parser || XML::Parser->new(
             ErrorContext => 2,
-            ParseParamEnt => 1,
+            ParseParamEnt => $XML::XPath::ParseParamEnt,
             );
 
     $parser->setHandlers(

@@ -1,5 +1,12 @@
 Revision history for XML::XPath
 
+1.32  2016-02-23 MANWAR
+      - Applied the following patches kindly provided by GREGOA:
+
+        https://anonscm.debian.org/cgit/pkg-perl/packages/libxml-xpath-perl.git/tree/debian/patches/fix-stringification-overload.patch
+        https://anonscm.debian.org/cgit/pkg-perl/packages/libxml-xpath-perl.git/tree/debian/patches/test.patch
+        https://anonscm.debian.org/cgit/pkg-perl/packages/libxml-xpath-perl.git/tree/debian/patches/xpath-option-to-work-without-internet-connection.patch
+
 1.31  2016-02-22 MANWAR
       - Proposed fix for RT #112017.
 
