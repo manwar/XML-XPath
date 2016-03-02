@@ -1,6 +1,6 @@
 package XML::XPath::Function;
 
-$VERSION = '1.32';
+$VERSION = '1.33';
 
 use XML::XPath::Number;
 use XML::XPath::Literal;
@@ -348,7 +348,12 @@ sub translate {
     local $_ = $params[0]->string_value;
     my $find = $params[1]->string_value;
     my $repl = $params[2]->string_value;
-    eval "tr/\Q$find\E/\Q$repl\E/d";
+    if (length($find) == length($repl)) {
+        eval "tr/\Q$find\E/\Q$repl\E/";
+    }
+    else {
+        eval "tr/\Q$find\E/\Q$repl\E/d";
+    }
     die $@ if $@;
     return XML::XPath::Literal->new($_);
 }

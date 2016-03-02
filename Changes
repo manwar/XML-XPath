@@ -1,5 +1,8 @@
 Revision history for XML::XPath
 
+1.33  2016-03-02 MANWAR
+      - Fixed issue RT #112584 (use of /d modifier in transliteration operator).
+
 1.32  2016-02-23 MANWAR
       - Applied the following patches kindly provided by GREGOA:
 
