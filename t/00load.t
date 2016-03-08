@@ -4,7 +4,7 @@ use 5.006;
 use strict;
 use warnings FATAL => 'all';
 
-use Test::More;
+use Test::More tests => 22;
 use lib 'lib';
 use Path::Tiny;
 

@@ -1,6 +1,6 @@
 package XML::XPath::Node::Namespace;
 
-$VERSION = '1.33';
+$VERSION = '1.34';
 
 use strict; use warnings;
 use vars qw/@ISA/;
