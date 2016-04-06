@@ -1,6 +1,6 @@
 package XML::XPath::Node::Element;
 
-$VERSION = '1.34';
+$VERSION = '1.35';
 
 use strict; use warnings;
 use vars qw/@ISA/;
@@ -173,6 +173,8 @@ sub getAttributeNode {
     foreach my $attr (@$attribs) {
         return $attr if $attr->getName eq $name;
     }
+
+    return;
 }
 
 sub getAttribute {
