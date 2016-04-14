@@ -1,5 +1,8 @@
 Revision history for XML::XPath
 
+1.36  2016-04-14 MANWAR
+      - Fixed issue RT #68932 (/usr/bin/xpath outputs unwanted text when quiet mode ist set).
+
 1.35  2016-04-06 MANWAR
       - Fixed issue RT #113576 (XML::XPath::Node::Element::getAttributeNode() uses unspecified behaviour).
 

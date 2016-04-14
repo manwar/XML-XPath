@@ -21,6 +21,11 @@ PARSE: while ((@ARGV >= 1) && ($ARGV[0] =~ /^-./ )) {
             push @paths, shift;
             last OPTIONS;
         }
+        if ($ARGV[0] eq "-q") {
+            $quiet = 1;
+            shift;
+            last OPTIONS;
+        }
         if ($ARGV[0] eq "-p") {
             shift;
             $PREFIX = shift;
@@ -29,11 +34,6 @@ PARSE: while ((@ARGV >= 1) && ($ARGV[0] =~ /^-./ )) {
         if ($ARGV[0] eq "-s") {
             shift;
             $SUFFIX = shift;
-            last OPTIONS;
-        }
-        if ($ARGV[0] eq "-q") {
-            $quiet = 1;
-            shift;
             last OPTIONS;
         }
         if ($ARGV[0] eq "-n") {
@@ -98,7 +98,7 @@ do {
         }
     }
     else {
-        print STDERR "Query didn't return a nodeset. Value: ";
+        print STDERR "Query didn't return a nodeset. Value: " unless $quiet;
         print $nodes->value, "\n";
     }
 

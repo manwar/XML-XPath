@@ -1,6 +1,6 @@
 package XML::XPath::XMLParser;
 
-$VERSION = '1.35';
+$VERSION = '1.36';
 
 use strict; use warnings;
 
