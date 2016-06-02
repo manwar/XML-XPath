@@ -1,6 +1,6 @@
 package XML::XPath::Function;
 
-$VERSION = '1.36';
+$VERSION = '1.37';
 
 use XML::XPath::Number;
 use XML::XPath::Literal;
@@ -215,7 +215,8 @@ sub contains {
     my ($node, @params) = @_;
     die "starts-with: incorrect number of params\n" unless @params == 2;
     my $value = $params[1]->string_value;
-    if ($params[0]->string_value =~ /(.*?)\Q$value\E(.*)/) {
+
+    if (defined $value && ($params[0]->string_value =~ /(.*?)\Q$value\E(.*)/)) {
         # Store the values of contains1, contains2 for use in the
         # substring functions below
         $self->{contains1} = $1;

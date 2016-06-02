@@ -1,6 +1,6 @@
 package XML::XPath::Expr;
 
-$VERSION = '1.36';
+$VERSION = '1.37';
 
 use strict; use warnings;
 
@@ -13,7 +13,8 @@ sub new {
 sub as_string {
     my $self = shift;
     local $^W; # Use of uninitialized value! grrr
-    my $string = "(" . $self->{lhs}->as_string;
+    my $string = "(" ;
+    $string .= $self->{lhs}->as_string||'' if defined $self->{lhs};
     $string .= " " . $self->{op} . " " if defined $self->{op};
     $string .= $self->{rhs}->as_string if defined $self->{rhs};
     $string .= ")";

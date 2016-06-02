@@ -1,6 +1,6 @@
 package XML::XPath::Step;
 
-$VERSION = '1.36';
+$VERSION = '1.37';
 
 use XML::XPath::Parser;
 use XML::XPath::Node;

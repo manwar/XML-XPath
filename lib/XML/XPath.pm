@@ -6,14 +6,14 @@ XML::XPath - Parse and evaluate XPath statements.
 
 =head1 VERSION
 
-Version 1.36
+Version 1.37
 
 =cut
 
 use strict; use warnings;
 use vars qw($VERSION $AUTOLOAD $revision);
 
-$VERSION = '1.36';
+$VERSION = '1.37';
 $XML::XPath::Namespaces = 1;
 $XML::XPath::ParseParamEnt = 1;
 $XML::XPath::Debug = 0;
@@ -153,11 +153,11 @@ sub find {
         );
         $context = $parser->parse;
         $self->set_context($context);
-        #warn "CONTEXT:\n", Dumper([$context], ['context']);
+        print "CONTEXT:\n", Dumper([$context], ['context']) if $XML::XPath::Debug;
     }
 
     my $parsed_path = $self->{path_parser}->parse($path);
-    #warn "\n\nPATH: ", $parsed_path->as_string, "\n\n";
+    print "\n\nPATH: ", $parsed_path->as_string, "\n\n" if $XML::XPath::Debug;
 
     #warn "evaluating path\n";
     return $parsed_path->evaluate($context);

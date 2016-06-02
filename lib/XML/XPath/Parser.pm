@@ -1,6 +1,6 @@
 package XML::XPath::Parser;
 
-$VERSION = '1.36';
+$VERSION = '1.37';
 
 use strict; use warnings;
 use vars qw/
@@ -176,15 +176,19 @@ sub tokenize {
 
     }
 
-    if (pos($path) < length($path)) {
-        my $marker = ("." x (pos($path)-1));
-        $path = substr($path, 0, pos($path) + 8) . "...";
+    my $path_pos = pos($path);
+    my $path_length = length($path);
+    if (defined $path_pos
+        && defined $path_length
+        && ($path_pos < $path_length)) {
+        my $marker = ("." x ($path_pos-1));
+        $path = substr($path, 0, $path_pos + 8) . "...";
         $path =~ s/\n/ /g;
         $path =~ s/\t/ /g;
         die "Query:\n",
-            "$path\n",
-            $marker, "^^^\n",
-            "Invalid query somewhere around here (I think)\n";
+        "$path\n",
+        $marker, "^^^\n",
+        "Invalid query somewhere around here (I think)\n";
     }
 
     return \@tokens;
@@ -404,7 +408,7 @@ sub PathExpr {
     my $test = $tokens->[$self->{_tokpos}];
 
     # Test for AbsoluteLocationPath and AbbreviatedRelativeLocationPath
-    if ($test =~ /^(\/\/?|\.\.?)$/) {
+    if (defined $test && ($test =~ /^(\/\/?|\.\.?)$/)) {
         # LocationPath
         $expr->set_lhs(LocationPath($self, $tokens));
     }
@@ -489,7 +493,7 @@ sub PrimaryExpr {
         match($self, $tokens, '\\)', 1);
     }
     else {
-        croak("Not a PrimaryExpr at " . $tokens->[$self->{_tokpos}]);
+        croak("Not a PrimaryExpr at " . ($tokens->[$self->{_tokpos}] ||''));
     }
 
     return $expr;
