@@ -4,7 +4,7 @@ use strict; use warnings;
 use vars qw/@ISA $VERSION/;
 
 @ISA = ('XML::XPath::Node');
-$VERSION = '1.37';
+$VERSION = '1.38';
 
 package XML::XPath::Node::AttributeImpl;
 

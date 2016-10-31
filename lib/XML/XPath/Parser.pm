@@ -1,6 +1,6 @@
 package XML::XPath::Parser;
 
-$VERSION = '1.37';
+$VERSION = '1.38';
 
 use strict; use warnings;
 use vars qw/
@@ -12,8 +12,7 @@ use vars qw/
         $NODE_TYPE
         $AXIS_NAME
         %AXES
-        $LITERAL
-        %CACHE/;
+        $LITERAL/;
 
 use Carp qw(croak);
 use XML::XPath::XMLParser;
@@ -115,9 +114,11 @@ sub my_sub {
 sub parse {
     my $self = shift;
     my $path = shift;
-    if ($CACHE{$path}) {
-        return $CACHE{$path};
+
+    if ($self->{cache}->{$path}) {
+        return $self->{cache}->{$path};
     }
+
     my $tokens = $self->tokenize($path);
 
     $self->{_tokpos} = 0;
@@ -128,7 +129,7 @@ sub parse {
         die "Parse of expression $path failed - junk after end of expression: $tokens->[$self->{_tokpos}]";
     }
 
-    $CACHE{$path} = $tree;
+    $self->{cache}->{$path} = $tree;
 
     debug("PARSED Expr to:\n", $tree->as_string, "\n") if $XML::XPath::Debug;
 
