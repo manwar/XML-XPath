@@ -1,5 +1,8 @@
 Revision history for XML::XPath
 
+1.39  2016-11-08 MANWAR
+      - Proposed fix for RT #118643.
+
 1.38  2016-10-31 MANWAR
       - Fixed parser caching as reported by Jeremy (mysticprune).
 

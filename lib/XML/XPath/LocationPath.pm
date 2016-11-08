@@ -1,7 +1,8 @@
 package XML::XPath::LocationPath;
 
-$VERSION = '1.38';
+$VERSION = '1.39';
 
+use Scalar::Util qw(blessed);
 use XML::XPath::Root;
 use strict; use warnings;
 
@@ -48,8 +49,8 @@ sub evaluate {
 
     my $nodeset = XML::XPath::NodeSet->new();
     $nodeset->push($context);
-
     foreach my $step (@$self) {
+        next unless (defined $step && blessed($step));
         # For each step
         # evaluate the step with the nodeset
         my $pos = 1;
