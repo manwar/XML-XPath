@@ -69,6 +69,11 @@ sub new {
     return $self;
 }
 
+sub cleanup {
+    my $self = shift;
+    $self->{cache} = {};
+}
+
 sub get_var {
     my $self = shift;
     my $var = shift;

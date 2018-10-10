@@ -485,6 +485,7 @@ sub cleanup {
         my $context = $self->get_context;
         return unless $context;
         $context->dispose;
+        $self->{path_parser}->cleanup if $self->{path_parser};
     }
 }
 
