@@ -359,6 +359,37 @@ sub translate {
     return XML::XPath::Literal->new($_);
 }
 
+sub _re_flags {
+  my $opts = "";
+  my $fn = shift;
+  for my $flag (split //, shift) {
+    if ($flag =~ /[smix]/) {
+      $opts .= $flag;
+    } elsif ($flag ne 'q') {
+      die "$fn: unknown flag $flag\n";
+    }
+  }
+  return $opts eq '' ? '' : "(?$opts)";
+}
+
+sub matches {
+  my $self = shift;
+  my ($node, @params) = @_;
+  die "matches: wrong number of params\n" if @params < 2 || @params > 3;
+  my $str = $params[0]->string_value;
+  my $re = $params[1]->string_value;
+  if (@params == 3) {
+    my $flags = $params[2]->string_value;
+    my $opts = _re_flags('matches', $flags);
+    if ($flags =~ /q/) {
+      $re = $opts . quotemeta($re);
+    } else {
+      $re = $opts . $re;
+    }
+  }
+  return $str =~ /$re/ ? XML::XPath::Boolean->True : XML::XPath::Boolean->False;
+}
+
 ### BOOLEAN FUNCTIONS ###
 
 sub boolean {
