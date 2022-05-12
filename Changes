@@ -1,5 +1,8 @@
 Revision history for XML::XPath
 
+1.45  2022-05-12 MANWAR
+      - Added XPath function matches(), thanks @shawnw.
+
 1.44  2018-10-11 MANWAR
       - Added new test for axis descendant.
 

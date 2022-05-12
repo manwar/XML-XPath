@@ -1,6 +1,6 @@
 package XML::XPath::LocationPath;
 
-$VERSION = '1.44';
+$VERSION = '1.45';
 
 use Scalar::Util qw(blessed);
 use XML::XPath::Root;
