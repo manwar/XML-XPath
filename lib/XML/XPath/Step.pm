@@ -1,6 +1,6 @@
 package XML::XPath::Step;
 
-$VERSION = '1.45';
+$VERSION = '1.46';
 
 use XML::XPath::Parser;
 use XML::XPath::Node;
@@ -9,7 +9,7 @@ use strict; use warnings;
 # the beginnings of using XS for this file...
 # require DynaLoader;
 # use vars qw/$VERSION @ISA/;
-# $VERSION = '1.45';
+# $VERSION = '1.46';
 # @ISA = qw(DynaLoader);
 #
 # bootstrap XML::XPath::Step $VERSION;

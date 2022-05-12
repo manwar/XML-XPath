@@ -1,6 +1,6 @@
 package XML::XPath::Builder;
 
-$VERSION = '1.45';
+$VERSION = '1.46';
 
 use strict; use warnings;
 

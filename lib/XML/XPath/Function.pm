@@ -1,6 +1,6 @@
 package XML::XPath::Function;
 
-$VERSION = '1.45';
+$VERSION = '1.46';
 
 use XML::XPath::Number;
 use XML::XPath::Literal;
