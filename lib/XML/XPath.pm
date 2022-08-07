@@ -61,6 +61,10 @@ before asking me questions. All of the classes and parts  herein are named to  b
 synonymous  with  the  names in  the  specification, so consult that if you don't
 understand why I'm doing something in the code.
 
+Currently, it supports XPath 1.0 with a small number of XPath 2.0
+functions. See L<XML::XPath::Function> for the complete list of
+predefined functions.
+
 =head1 METHODS
 
 The API of XML::XPath itself is extremely simple to allow you to get going almost
@@ -572,9 +576,10 @@ Currently maintained by Mohammad S Anwar, C<< <mohammad.anwar at yahoo.com> >>
 
 =head1 SEE ALSO
 
-L<XML::XPath::Literal>, L<XML::XPath::Boolean>, L<XML::XPath::Number>,
-L<XML::XPath::XMLParser>, L<XML::XPath::NodeSet>, L<XML::XPath::PerlSAX>,
-L<XML::XPath::Builder>.
+L<XML::XPath::Function>, L<XML::XPath::Literal>,
+L<XML::XPath::Boolean>, L<XML::XPath::Number>,
+L<XML::XPath::XMLParser>, L<XML::XPath::NodeSet>,
+L<XML::XPath::PerlSAX>, L<XML::XPath::Builder>.
 
 =head1 LICENSE AND COPYRIGHT
 
