@@ -17,9 +17,6 @@ XML::XPath::Functions - implementations of XPath functions
 
 XPath 1.0 and some later functions are supported.
 
-Note that functions that take regular expressions use Perl-syntax REs,
-not the language described in the XPath spec.
-
 =head1 FUNCTIONS
 
 =cut
@@ -227,6 +224,23 @@ sub name {
 
 =head2 STRING FUNCTIONS
 
+Note that functions that take regular expressions use Perl-syntax REs,
+not the language described in the XPath spec.
+
+Some Xpath 2.0 functions are described in the spec as taking an optional
+collation type argument; that is currently not implemented and attempting to
+use them with one will raise an error.
+
+=head3 Equality and Comparisions of Strings
+
+=over
+
+=item *
+
+C<compare()>
+
+=back
+
 =head3 Functions On String Values
 
 =over
@@ -253,6 +267,18 @@ C<normalize-space()>
 
 =item *
 
+C<normalize-unicode()>
+
+=item *
+
+C<upper-case()>
+
+=item *
+
+C<lower-case()>
+
+=item *
+
 C<translate()>
 
 =back
@@ -268,6 +294,10 @@ C<contains()>
 =item *
 
 C<starts-with()>
+
+=item *
+
+C<ends-with()>
 
 =item *
 
@@ -287,9 +317,24 @@ C<substring-after()>
 
 C<matches()>
 
+=item *
+
+C<replace()>
+
+Note: Doesn't currently support C<$N> substitutions in the replacement text.
+
 =back
 
 =cut
+
+sub compare {
+    my $self = shift;
+    my ($node, @params) = @_;
+    die "compare: Incorrect number of params\n" unless @params == 2;
+    my $str1 = $params[0]->string_value;
+    my $str2 = $params[1]->string_value;
+    return XML::XPath::Number->new($str1 cmp $str2);    
+}
 
 sub string {
     my $self = shift;
@@ -312,6 +357,7 @@ sub concat {
     return XML::XPath::Literal->new($string);
 }
 
+# TODO: Add third collation argument
 sub starts_with {
     my $self = shift;
     my ($node, @params) = @_;
@@ -321,6 +367,23 @@ sub starts_with {
         return XML::XPath::Boolean->True;
     }
     return XML::XPath::Boolean->False;
+}
+
+# TODO: Add third collation argument
+sub ends_with {
+    my $self = shift;
+    my ($node, @params) = @_;
+    die "ends-with: incorrect number of params\n" unless @params == 2;
+    my ($string1, $string2) = ($params[0]->string_value, $params[1]->string_value);
+    if (length($string2) == 0) {
+        return XML::XPath::Boolean->True;
+    } elsif (length($string2) > length($string1)) {
+        return XML::XPath::Boolean->False;
+    } elsif (substr($string1, -length($string2)) eq $string2) {
+        return XML::XPath::Boolean->True;
+    } else {
+        return XML::XPath::Boolean->False;
+    }
 }
 
 sub contains {
@@ -455,6 +518,42 @@ sub normalize_space {
     return XML::XPath::Literal->new($str);
 }
 
+my %_forms = ( NFC => 1, NFD => 1, NFKC => 1, NFKD => 1);
+sub normalize_unicode {
+    require Unicode::Normalize;
+
+    my $self = shift;
+    my ($node, @params) = @_;
+    die "normalize-unicode: Wrong number of params\n"
+        if @params == 0 || @params > 2;
+
+    my $form = "NFC";
+    if (@params == 2) {
+        $form = $params[1]->string_value;
+        die "normalize-unicode: Unknown normalization form $form\n"
+            unless exists $_forms{$form};
+    }
+    my $str = $params[0]->string_value;
+
+    return XML::XPath::Literal->new(Unicode::Normalize::normalize($form, $str));
+}
+
+sub upper_case {
+    my $self = shift;
+    my ($node, @params) = @_;
+    die "upper-case: Wrong number of params\n" if @params != 1;
+    my $str = $params[0]->string_value;
+    return XML::XPath::Literal->new(uc $str);
+}
+
+sub lower_case {
+    my $self = shift;
+    my ($node, @params) = @_;
+    die "lower-case: Wrong number of params\n" if @params != 1;
+    my $str = $params[0]->string_value;
+    return XML::XPath::Literal->new(lc $str);
+}
+
 sub translate {
     my $self = shift;
     my ($node, @params) = @_;
@@ -501,6 +600,26 @@ sub matches {
     }
   }
   return $str =~ /$re/ ? XML::XPath::Boolean->True : XML::XPath::Boolean->False;
+}
+
+sub replace {
+  my $self = shift;
+  my ($node, @params) = @_;
+  die "replace: wrong number of params\n" if @params < 3 || @params > 4;
+  my $str = $params[0]->string_value;
+  my $re = $params[1]->string_value;
+  my $replace = $params[2]->string_value;
+  if (@params == 4) {
+    my $flags = $params[3]->string_value;
+    my $opts = _re_flags('replace', $flags);
+    if ($flags =~ /q/) {
+      $re = $opts . quotemeta($re);
+    } else {
+      $re = $opts . $re;
+    }
+  }
+  $str =~ s/$re/$replace/g;
+  return XML::XPath::Literal->new($str);
 }
 
 =head2 BOOLEAN FUNCTIONS

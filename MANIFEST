@@ -81,6 +81,12 @@ t/49literal.t
 t/50xmlxpathparsercache.t
 t/51elementname.t
 t/52matches.t
+t/53ends_with.t
+t/54upper_case.t
+t/55lower_case.t
+t/56normalize.t
+t/57compare.t
+t/58replace.t
 t/cleanup.t
 t/rdf.t
 t/remove.t
