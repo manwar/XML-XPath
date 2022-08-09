@@ -11,7 +11,7 @@ use XML::XPath::Node::PI;
 use XML::XPath::Node::Attribute;
 use XML::XPath::Node::Namespace;
 
-our $VERSION = '1.47';
+our $VERSION = '1.48';
 
 my @options = qw(
         filename

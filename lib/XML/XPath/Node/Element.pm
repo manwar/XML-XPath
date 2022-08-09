@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use parent qw/XML::XPath::Node/;
 
-our $VERSION = '1.47';
+our $VERSION = '1.48';
 
 package XML::XPath::Node::ElementImpl;
 

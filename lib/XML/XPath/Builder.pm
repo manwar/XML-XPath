@@ -3,7 +3,7 @@ package XML::XPath::Builder;
 use strict;
 use warnings;
 
-our $VERSION = '1.47';
+our $VERSION = '1.48';
 
 # to get array index constants
 use XML::XPath::Node;
