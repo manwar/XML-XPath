@@ -81,6 +81,7 @@ t/49literal.t
 t/50xmlxpathparsercache.t
 t/51elementname.t
 t/52matches.t
+t/53ends_with.t
 t/cleanup.t
 t/rdf.t
 t/remove.t

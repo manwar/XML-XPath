@@ -271,6 +271,10 @@ C<starts-with()>
 
 =item *
 
+C<ends-with()>
+
+=item *
+
 C<substring-before()>
 
 =item *
@@ -312,6 +316,7 @@ sub concat {
     return XML::XPath::Literal->new($string);
 }
 
+# TODO: Add third collation argument
 sub starts_with {
     my $self = shift;
     my ($node, @params) = @_;
@@ -321,6 +326,23 @@ sub starts_with {
         return XML::XPath::Boolean->True;
     }
     return XML::XPath::Boolean->False;
+}
+
+# TODO: Add third collation argument
+sub ends_with {
+    my $self = shift;
+    my ($node, @params) = @_;
+    die "ends-with: incorrect number of params\n" unless @params == 2;
+    my ($string1, $string2) = ($params[0]->string_value, $params[1]->string_value);
+    if (length($string2) == 0) {
+        return XML::XPath::Boolean->True;
+    } elsif (length($string2) > length($string1)) {
+        return XML::XPath::Boolean->False;
+    } elsif (substr($string1, -length($string2)) eq $string2) {
+        return XML::XPath::Boolean->True;
+    } else {
+        return XML::XPath::Boolean->False;
+    }
 }
 
 sub contains {
