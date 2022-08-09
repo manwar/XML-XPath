@@ -253,6 +253,14 @@ C<normalize-space()>
 
 =item *
 
+C<upper-case()>
+
+=item *
+
+C<lower-case()>
+
+=item *
+
 C<translate()>
 
 =back
@@ -475,6 +483,22 @@ sub normalize_space {
     $str =~ s/\s*$//;
     $str =~ s/\s+/ /g;
     return XML::XPath::Literal->new($str);
+}
+
+sub upper_case {
+    my $self = shift;
+    my ($node, @params) = @_;
+    die "upper-case: Wrong number of params\n" if @params != 1;
+    my $str = $params[0]->string_value;
+    return XML::XPath::Literal->new(uc $str);
+}
+
+sub lower_case {
+    my $self = shift;
+    my ($node, @params) = @_;
+    die "lower-case: Wrong number of params\n" if @params != 1;
+    my $str = $params[0]->string_value;
+    return XML::XPath::Literal->new(lc $str);
 }
 
 sub translate {
