@@ -10,13 +10,14 @@ Version 1.47
 
 =cut
 
-use strict; use warnings;
-use vars qw($VERSION $AUTOLOAD $revision);
+use strict;
+use warnings;
+use parent qw/Exporter/;
 
-$VERSION = '1.47';
-$XML::XPath::Namespaces = 1;
-$XML::XPath::ParseParamEnt = 1;
-$XML::XPath::Debug = 0;
+our $VERSION = '1.47';
+our $Namespaces = 1;
+our $ParseParamEnt = 1;
+our $Debug = 0;
 
 use Data::Dumper;
 use XML::XPath::XMLParser;

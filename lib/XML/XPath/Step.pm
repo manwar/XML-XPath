@@ -1,10 +1,11 @@
 package XML::XPath::Step;
 
-$VERSION = '1.47';
-
 use XML::XPath::Parser;
 use XML::XPath::Node;
-use strict; use warnings;
+use strict;
+use warnings;
+
+our $VERSION = '1.47';
 
 # the beginnings of using XS for this file...
 # require DynaLoader;
