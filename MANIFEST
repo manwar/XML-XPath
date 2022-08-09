@@ -85,6 +85,7 @@ t/53ends_with.t
 t/54upper_case.t
 t/55lower_case.t
 t/56normalize.t
+t/57compare.t
 t/cleanup.t
 t/rdf.t
 t/remove.t

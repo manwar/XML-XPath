@@ -17,9 +17,6 @@ XML::XPath::Functions - implementations of XPath functions
 
 XPath 1.0 and some later functions are supported.
 
-Note that functions that take regular expressions use Perl-syntax REs,
-not the language described in the XPath spec.
-
 =head1 FUNCTIONS
 
 =cut
@@ -227,6 +224,23 @@ sub name {
 
 =head2 STRING FUNCTIONS
 
+Note that functions that take regular expressions use Perl-syntax REs,
+not the language described in the XPath spec.
+
+Some Xpath 2.0 functions are described in the spec as taking an optional
+collation type argument; that is currently not implemented and attempting to
+use them with one will raise an error.
+
+=head3 Equality and Comparisions of Strings
+
+=over
+
+=item *
+
+C<compare()>
+
+=back
+
 =head3 Functions On String Values
 
 =over
@@ -251,7 +265,7 @@ C<string-length()>
 
 C<normalize-space()>
 
-=ITEM *
+=item *
 
 C<normalize-unicode()>
 
@@ -306,6 +320,15 @@ C<matches()>
 =back
 
 =cut
+
+sub compare {
+    my $self = shift;
+    my ($node, @params) = @_;
+    die "compare: Incorrect number of params\n" unless @params == 2;
+    my $str1 = $params[0]->string_value;
+    my $str2 = $params[1]->string_value;
+    return XML::XPath::Number->new($str1 cmp $str2);    
+}
 
 sub string {
     my $self = shift;
