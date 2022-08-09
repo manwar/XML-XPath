@@ -251,6 +251,10 @@ C<string-length()>
 
 C<normalize-space()>
 
+=ITEM *
+
+C<normalize-unicode()>
+
 =item *
 
 C<upper-case()>
@@ -483,6 +487,26 @@ sub normalize_space {
     $str =~ s/\s*$//;
     $str =~ s/\s+/ /g;
     return XML::XPath::Literal->new($str);
+}
+
+my %_forms = ( NFC => 1, NFD => 1, NFKC => 1, NFKD => 1);
+sub normalize_unicode {
+    require Unicode::Normalize;
+
+    my $self = shift;
+    my ($node, @params) = @_;
+    die "normalize-unicode: Wrong number of params\n"
+        if @params == 0 || @params > 2;
+
+    my $form = "NFC";
+    if (@params == 2) {
+        $form = $params[1]->string_value;
+        die "normalize-unicode: Unknown normalization form $form\n"
+            unless exists $_forms{$form};
+    }
+    my $str = $params[0]->string_value;
+
+    return XML::XPath::Literal->new(Unicode::Normalize::normalize($form, $str));
 }
 
 sub upper_case {
