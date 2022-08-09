@@ -317,6 +317,12 @@ C<substring-after()>
 
 C<matches()>
 
+=item *
+
+C<replace()>
+
+Note: Doesn't currently support C<$N> substitutions in the replacement text.
+
 =back
 
 =cut
@@ -594,6 +600,26 @@ sub matches {
     }
   }
   return $str =~ /$re/ ? XML::XPath::Boolean->True : XML::XPath::Boolean->False;
+}
+
+sub replace {
+  my $self = shift;
+  my ($node, @params) = @_;
+  die "replace: wrong number of params\n" if @params < 3 || @params > 4;
+  my $str = $params[0]->string_value;
+  my $re = $params[1]->string_value;
+  my $replace = $params[2]->string_value;
+  if (@params == 4) {
+    my $flags = $params[3]->string_value;
+    my $opts = _re_flags('replace', $flags);
+    if ($flags =~ /q/) {
+      $re = $opts . quotemeta($re);
+    } else {
+      $re = $opts . $re;
+    }
+  }
+  $str =~ s/$re/$replace/g;
+  return XML::XPath::Literal->new($str);
 }
 
 =head2 BOOLEAN FUNCTIONS
