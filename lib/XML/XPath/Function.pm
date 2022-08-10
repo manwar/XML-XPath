@@ -51,7 +51,7 @@ sub as_xml {
     my $string = "<Function name=\"$self->{name}\"";
     my $params = "";
     foreach (@{$self->{params}}) {
-        $params .= "<Param>" . $_->as_string . "</Param>\n";
+        $params .= "<Param>" . $_->as_xml() . "</Param>\n";
     }
     if ($params) {
         $string .= ">\n$params</Function>\n";
